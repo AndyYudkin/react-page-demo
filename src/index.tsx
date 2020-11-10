@@ -6,7 +6,7 @@ import '@react-page/ui/lib/index.css';
 import '@react-page/plugins-slate/lib/index.css';
 import '@react-page/plugins-background/lib/index.css';
 
-import { ImagePlugin } from './plugin/image';
+import { ImagePlugin } from './image';
 
 const ReactPageDemo = () => {
   return (
