@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Editor from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
 
-import { imagePlugin } from '@react-page/plugins-image';
+import { imagePlugin } from './plugins/image';
 import { ImageUploadType } from '@react-page/ui/lib/ImageUpload/types';
 import '@react-page/plugins-image/lib/index.css';
 
@@ -69,14 +69,17 @@ export class ImagePlugin extends Component<any, any>{
       switch (text) {
         case 'cat': {
           imageState.src = `https://cdn.mos.cms.futurecdn.net/VSy6kJDNq2pSXsCzb6cvYF.jpg`;
+          imageState.searchList = ['https://nen.press/wp-content/uploads/2017/08/cat-1.jpg', 'https://images.theconversation.com/files/297893/original/file-20191021-56215-1wq7k71.jpg'];
           break;
         }
         case 'dog': {
           imageState.src = `https://i.insider.com/5484d9d1eab8ea3017b17e29?width=600&format=jpeg&auto=webp`;
+          imageState.searchList = ['https://static1.bigstockphoto.com/0/6/2/large1500/260666896.jpg', 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg']
           break;
         }
         case 'mouse': {
           imageState.src = `https://resource.logitechg.com/w_659,c_limit,f_auto,q_auto:best,f_auto,dpr_2.0/content/dam/gaming/en/products/pro-mouse/promouse-hero.png`;
+          imageState.searchList = [];
           break;
         }
       }

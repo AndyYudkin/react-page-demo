@@ -30,7 +30,7 @@ export const imageDefaultState = {
           name: 'ory/editor/core/content/image',
           version: '0.0.1',
         },
-        state: { src: 'https://picsum.photos/200/50' },
+        state: { src: 'https://picsum.photos/200/50', searchList: [] },
       },
     },
   ],
