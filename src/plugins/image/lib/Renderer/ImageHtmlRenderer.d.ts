@@ -1,5 +1,7 @@
-import * as React from 'react';
 import { ImageRendererProps } from '../types/renderer';
-declare const ImageHtmlRenderer: React.SFC<ImageRendererProps>;
+import { Component } from 'react';
+declare class ImageHtmlRenderer extends Component<ImageRendererProps, any> {
+    render(): JSX.Element;
+}
 export default ImageHtmlRenderer;
 //# sourceMappingURL=ImageHtmlRenderer.d.ts.map

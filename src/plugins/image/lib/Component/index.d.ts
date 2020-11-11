@@ -6,7 +6,10 @@ declare type StateType = {
 };
 declare class Form extends React.Component<ImageProps, StateType> {
     constructor(props: ImageProps);
-    handleChange: (src: string) => void;
+    handleChange: (src: string, searchList: {
+        thumb: string;
+        full: string;
+    }[]) => void;
     handleImageLoaded: (image: ImageLoaded) => void;
     handleImageUploaded: (resp: ImageUploaded) => void;
     render(): JSX.Element;

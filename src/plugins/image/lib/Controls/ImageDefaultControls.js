@@ -38,7 +38,7 @@ var ImageDefaultControls = function (props) {
     return (React.createElement("div", null,
         React.createElement(Renderer, __assign({}, props)),
         !readOnly && focused && (React.createElement(ui_1.BottomToolbar, __assign({ icon: props.IconComponent, open: props.focused, title: (_a = props.translations) === null || _a === void 0 ? void 0 : _a.pluginName, onDelete: remove }, props),
-            React.createElement("div", { style: { display: 'flex' } }, props.imageUpload && (React.createElement(React.Fragment, null, props.searchList != null && props.searchList.map(function (item, index) { return React.createElement("img", { width: '25%', alt: "", src: item.thumb, key: index, onClick: function () { return handleChange(item.full); } }); }))))))));
+            React.createElement("div", { style: { display: 'flex' } }, props.imageUpload && (React.createElement(React.Fragment, null, props.searchList != null && props.searchList.map(function (item, index) { return React.createElement("img", { width: '25%', alt: "", src: item.thumb, key: index, onClick: function () { return handleChange(item.thumb, props.searchList != null ? props.searchList : []); } }); }))))))));
 };
 exports.default = ImageDefaultControls;
 //# sourceMappingURL=ImageDefaultControls.js.map

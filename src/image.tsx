@@ -59,8 +59,8 @@ export class ImagePlugin extends Component<any, any>{
         }
       }
     })
-    if (inputText != null) {
-      if (inputText.length > 2) {
+    if (inputText != null && inputText.length > 0 && inputText[inputText.length - 1] === ' ') {
+      if (inputText.trim().split(' ').length >= 3) {
         axios.get(`https://ss.getarchive.net/api/v1/search?text=${inputText}`).then(this.parse).catch(error => console.log(error));
       }
     }
@@ -71,7 +71,6 @@ export class ImagePlugin extends Component<any, any>{
   parse = (response: AxiosResponse): {thumb: string, full: string}[] => {
     const result: {thumb: string, full: string}[] = [];
     response.data.items.forEach((item: any) => result.push( {thumb: item.resources[0].url, full: item.resources[item.resources.length - 1].url}));
-    console.log(result);
     if (result.length > 0) {
       this.setState((prev: any) => {
         let imageState: any = null;
@@ -91,7 +90,7 @@ export class ImagePlugin extends Component<any, any>{
           }
         });
         if (imageState != null) {
-          imageState.src = result[0].full;
+          imageState.src = result[0].thumb;
           imageState.searchList = [];
           result.forEach((item: {thumb: string, full: string}, index: number) => {
             if (index > 0) {

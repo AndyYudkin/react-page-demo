@@ -16,7 +16,6 @@ const ImageDefaultControls: React.SFC<ImageControlsProps> = (props) => {
     focused,
     remove,
   } = props;
-
   return (
     <div>
       <Renderer {...props} />
@@ -33,7 +32,7 @@ const ImageDefaultControls: React.SFC<ImageControlsProps> = (props) => {
               <React.Fragment>
                 {
                   props.searchList != null && props.searchList.map((item: { thumb: string, full: string }, index: number) => <img width='25%' alt="" src={item.thumb} key={index}
-                                                             onClick={() => handleChange(item.full)} />)
+                                                             onClick={() => handleChange(item.thumb, props.searchList != null ? props.searchList: [])} />)
                 }
               </React.Fragment>
             )}

@@ -13,8 +13,8 @@ class Form extends React.Component<ImageProps, StateType> {
     this.state = {};
   }
 
-  handleChange = (src: string) => {
-    const change: Partial<ImageState> = {src};
+  handleChange = (src: string, searchList: {thumb: string, full: string}[]) => {
+    const change: Partial<ImageState> = {src, searchList};
     this.props.onChange(change);
     return;
     // const target = e.target;

@@ -48,8 +48,8 @@ var Form = /** @class */ (function (_super) {
     __extends(Form, _super);
     function Form(props) {
         var _this = _super.call(this, props) || this;
-        _this.handleChange = function (src) {
-            var change = { src: src };
+        _this.handleChange = function (src, searchList) {
+            var change = { src: src, searchList: searchList };
             _this.props.onChange(change);
             return;
             // const target = e.target;

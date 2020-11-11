@@ -1,4 +1,17 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -22,14 +35,33 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __importStar(require("react"));
 var styles_1 = require("../common/styles");
 var core_1 = require("@react-page/core");
+var react_1 = require("react");
 var ImageIcon = core_1.lazyLoad(function () { return Promise.resolve().then(function () { return __importStar(require('@material-ui/icons/Landscape')); }); });
-var ImageHtmlRenderer = function (props) {
-    var isEditMode = props.isEditMode, state = props.state;
-    var src = state.src;
-    var Image = React.createElement("img", { className: "ory-plugins-content-image", alt: "", src: src });
-    return src ? (React.createElement("div", null, state.href && !isEditMode ? (React.createElement("a", { href: state.href, target: state.target, rel: state.rel }, Image)) : (Image))) : (React.createElement("div", null,
-        React.createElement("div", { className: "ory-plugins-content-image-placeholder" },
-            React.createElement(ImageIcon, { style: styles_1.iconStyle }))));
-};
+var ImageHtmlRenderer = /** @class */ (function (_super) {
+    __extends(ImageHtmlRenderer, _super);
+    function ImageHtmlRenderer() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ImageHtmlRenderer.prototype.render = function () {
+        var _a = this.props, isEditMode = _a.isEditMode, state = _a.state;
+        var src = state.src;
+        return src ? (
+        // <div>
+        //   {state.href && !isEditMode ? (
+        //     <a href={state.href} target={state.target} rel={state.rel}>
+        //       {Image}
+        //     </a>
+        //   ) : (
+        //     Image
+        //   )}
+        // </div>
+        React.createElement("div", null,
+            React.createElement("img", { className: "ory-plugins-content-image", alt: "", src: src }))) : (React.createElement("div", null,
+            React.createElement("div", { className: "ory-plugins-content-image-placeholder" },
+                React.createElement(ImageIcon, { style: styles_1.iconStyle }))));
+    };
+    return ImageHtmlRenderer;
+}(react_1.Component));
+;
 exports.default = ImageHtmlRenderer;
 //# sourceMappingURL=ImageHtmlRenderer.js.map
