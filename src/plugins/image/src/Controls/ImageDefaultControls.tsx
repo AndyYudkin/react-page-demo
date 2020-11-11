@@ -32,8 +32,8 @@ const ImageDefaultControls: React.SFC<ImageControlsProps> = (props) => {
             {props.imageUpload && (
               <React.Fragment>
                 {
-                  props.searchList != null && props.searchList.map((url: string, index: number) => <img width='25%' alt="" src={url} key={index}
-                                                             onClick={() => handleChange(url)} />)
+                  props.searchList != null && props.searchList.map((item: { thumb: string, full: string }, index: number) => <img width='25%' alt="" src={item.thumb} key={index}
+                                                             onClick={() => handleChange(item.full)} />)
                 }
               </React.Fragment>
             )}

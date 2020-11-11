@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios, { AxiosResponse } from 'axios';
 
 import Editor from '@react-page/editor';
 import slate from '@react-page/plugins-slate';
@@ -42,53 +43,70 @@ export class ImagePlugin extends Component<any, any>{
   }
 
   onChange = (state: any) => {
-    let imageState: any = null;
-    let text: string | null = null;
+    let inputText: string = '';
     state.cells.forEach((cell0: any) => {
       if (cell0.hasOwnProperty('rows')) {
         for (const row0 of cell0.rows) {
           row0.cells.forEach((cell1: any) => {
-            if (text == null) {
-              text = this.findTextInCell(cell1);
-            }
-            if (imageState == null) {
-              imageState = this.findImageInCell(cell1);
+            if (inputText.length === 0) {
+              inputText = this.findTextInCell(cell1);
             }
           })
         }
       } else {
-        if (text == null) {
-          text = this.findTextInCell(cell0);
-        }
-        if (imageState == null) {
-          imageState = this.findImageInCell(cell0);
+        if (inputText.length === 0) {
+          inputText = this.findTextInCell(cell0);
         }
       }
     })
-    if (text != null && imageState != null) {
-      switch (text) {
-        case 'cat': {
-          imageState.src = `https://cdn.mos.cms.futurecdn.net/VSy6kJDNq2pSXsCzb6cvYF.jpg`;
-          imageState.searchList = ['https://nen.press/wp-content/uploads/2017/08/cat-1.jpg', 'https://images.theconversation.com/files/297893/original/file-20191021-56215-1wq7k71.jpg'];
-          break;
-        }
-        case 'dog': {
-          imageState.src = `https://i.insider.com/5484d9d1eab8ea3017b17e29?width=600&format=jpeg&auto=webp`;
-          imageState.searchList = ['https://static1.bigstockphoto.com/0/6/2/large1500/260666896.jpg', 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg']
-          break;
-        }
-        case 'mouse': {
-          imageState.src = `https://resource.logitechg.com/w_659,c_limit,f_auto,q_auto:best,f_auto,dpr_2.0/content/dam/gaming/en/products/pro-mouse/promouse-hero.png`;
-          imageState.searchList = [];
-          break;
-        }
+    if (inputText != null) {
+      if (inputText.length > 2) {
+        axios.get(`https://ss.getarchive.net/api/v1/search?text=${inputText}`).then(this.parse).catch(error => console.log(error));
       }
     }
     this.setState(() => state);
+
+  }
+
+  parse = (response: AxiosResponse): {thumb: string, full: string}[] => {
+    const result: {thumb: string, full: string}[] = [];
+    response.data.items.forEach((item: any) => result.push( {thumb: item.resources[0].url, full: item.resources[item.resources.length - 1].url}));
+    console.log(result);
+    if (result.length > 0) {
+      this.setState((prev: any) => {
+        let imageState: any = null;
+        prev.cells.forEach((cell0: any) => {
+          if (cell0.hasOwnProperty('rows')) {
+            for (const row0 of cell0.rows) {
+              row0.cells.forEach((cell1: any) => {
+                if (imageState == null) {
+                  imageState = this.findImageInCell(cell1);
+                }
+              })
+            }
+          } else {
+            if (imageState == null) {
+              imageState = this.findImageInCell(cell0);
+            }
+          }
+        });
+        if (imageState != null) {
+          imageState.src = result[0].full;
+          imageState.searchList = [];
+          result.forEach((item: {thumb: string, full: string}, index: number) => {
+            if (index > 0) {
+              imageState.searchList.push(item);
+            }
+          })
+        }
+        return prev;
+      })
+    }
+    return result;
   }
 
   findTextInCell = (cell: any): string => {
-    let result = null;
+    let result = '';
     if (cell.content.plugin.name === `ory/editor/core/content/slate`) {
       if (cell.content.state.slate.length > 0) {
         const {children} = cell.content.state.slate[0];

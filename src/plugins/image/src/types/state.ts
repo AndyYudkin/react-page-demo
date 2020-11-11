@@ -4,5 +4,5 @@ export interface ImageState {
   href?: string;
   target?: string;
   rel?: string;
-  searchList?: string[]
+  searchList?: { thumb: string, full: string }[]
 }
